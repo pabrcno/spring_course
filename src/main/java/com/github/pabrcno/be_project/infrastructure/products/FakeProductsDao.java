@@ -17,7 +17,7 @@ public class FakeProductsDao implements IProductsDao {
 
     private static List<Product> products = new ArrayList<Product>();
     private static final Logger LOGGER = LogManager.getLogger(FakeProductsDao.class);
-
+    
     @Override
     public Product[] getAllProducts() {
         LOGGER.info("getAllProducts");

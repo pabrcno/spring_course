@@ -10,7 +10,7 @@ public interface IProductsDao {
         Product getProductById(UUID productId);
         void emptyProductStock(UUID productId);
         void updateProductStock(UUID productId, int stock);
-        void addObserver(UUID productId,IObserver observer);
+        void addObserver(UUID productId,IObserver user);
         void removeObserver(UUID productId, IObserver observer);
 
 }
