@@ -1,22 +1,22 @@
-package com.github.pabrcno.be_project.domain.users;
+package com.github.pabrcno.be_project.domain.customers;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.pabrcno.be_project.domain.core.Observer.IObserver;
 
-public class User implements IObserver {
-    private String username;
+public class Customer implements IObserver {
+    private String customerName;
     private String password;
     private UUID id;
-    public User( 
-        @JsonProperty("name") String username,
+    public Customer( 
+        @JsonProperty("name") String customerName,
         @JsonProperty("password") String password
     ) {
-        this.username = username;
+        this.customerName = customerName;
         this.password = password;
         this.id = UUID.randomUUID();
     }
-    public String getUsername() {
-        return username;
+    public String getCustomerName() {
+        return customerName;
     }
     public String getPassword() {
         return password;
@@ -26,6 +26,6 @@ public class User implements IObserver {
     }
     @Override
     public void update(String message) {
-        System.out.println("User " + this.username + " got notified of if product was available: " + message);
+        System.out.println("customer " + this.customerName + " got notified of if product was available: " + message);
     }
 }

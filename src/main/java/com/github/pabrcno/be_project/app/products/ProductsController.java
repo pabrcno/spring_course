@@ -2,8 +2,8 @@ package com.github.pabrcno.be_project.app.products;
 import java.util.UUID;
 import com.github.pabrcno.be_project.domain.products.IProductsDao;
 import com.github.pabrcno.be_project.domain.products.Product;
-import com.github.pabrcno.be_project.domain.users.IUsersDao;
-import com.github.pabrcno.be_project.domain.users.User;
+import com.github.pabrcno.be_project.domain.customers.ICustomersDao;
+import com.github.pabrcno.be_project.domain.customers.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/products")
 @RestController
 public class ProductsController {
-    IUsersDao usersDao;
+    ICustomersDao customersDao;
     IProductsDao productsDao;
 
     @Autowired
-    public ProductsController(IProductsDao productsDao, IUsersDao usersDao) {
+    public ProductsController(IProductsDao productsDao, ICustomersDao customersDao) {
         this.productsDao = productsDao;
-        this.usersDao = usersDao;
+        this.customersDao = customersDao;
     }
 
     @GetMapping
@@ -51,15 +51,15 @@ public class ProductsController {
         productsDao.updateProductStock(productId, stock);
     }
 
-    @PatchMapping(path ="{productId}/{userId}/addObserver")
-    public void addObserver(@PathVariable("productId") UUID productId, @PathVariable("userId") UUID userId) {
-        User user = usersDao.getUserById(userId);
-        productsDao.addObserver(productId, user);
+    @PatchMapping(path ="{productId}/{customerId}/addObserver")
+    public void addObserver(@PathVariable("productId") UUID productId, @PathVariable("customerId") UUID customerId) {
+        Customer customer = customersDao.getCustomerById(customerId);
+        productsDao.addObserver(productId, customer);
     }
 
-    @PatchMapping(path= "{productId}/{userId}/removeObserver")
-    public void removeObserver(@PathVariable("productId") UUID productId, @PathVariable("userId") UUID userId) {
-        User user = usersDao.getUserById(userId);
-        productsDao.removeObserver(productId, user);
+    @PatchMapping(path= "{productId}/{customerId}/removeObserver")
+    public void removeObserver(@PathVariable("productId") UUID productId, @PathVariable("customerId") UUID customerId) {
+        Customer customer = customersDao.getCustomerById(customerId);
+        productsDao.removeObserver(productId, customer);
     }
 }
