@@ -55,7 +55,7 @@ public class ProductsController {
         productsDao.updateProductStock(productId, stock);
     }
 
-    @PostMapping(path ="{productId}/{userId}/addObserver")
+    @PatchMapping(path ="{productId}/{userId}/addObserver")
     public void addObserver(@PathVariable("productId") UUID productId, @PathVariable("userId") UUID userId) {
         User user = usersDao.getUserById(userId);
         productsDao.addObserver(productId, user);
