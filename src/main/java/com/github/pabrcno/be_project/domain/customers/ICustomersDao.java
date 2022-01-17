@@ -7,4 +7,6 @@ public interface ICustomersDao {
     void addCustomer(Customer Customer);
     Customer getCustomerByName(String customerName);
     Customer getCustomerById(UUID id);
+    void deleteCustomer(UUID id);
+    void updateCustomer(UUID id, Customer customer);
 }

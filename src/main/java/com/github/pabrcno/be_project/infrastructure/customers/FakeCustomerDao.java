@@ -48,6 +48,27 @@ public class FakeCustomerDao implements ICustomersDao {
     @Override
     public Customer getCustomerById(UUID id) {
         return customers.stream().filter(u -> u.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    @Override
+    public void deleteCustomer(UUID id) {
+        Customer customer = getCustomerById(id);
+        if (customer == null) {
+            throw new FirstApplicationException("customer not found");
+        }
+        customers.remove(customer);
+        
+    }
+
+    @Override
+    public void updateCustomer(UUID id, Customer customer) {
+        Customer oldCustomer = getCustomerById(id);
+        if (oldCustomer == null) {
+            throw new FirstApplicationException("customer not found");
+        }
+        oldCustomer.setCustomerName(customer.getCustomerName());
+        oldCustomer.setPassword(customer.getPassword());
+        
     }   
 }
     

@@ -5,7 +5,9 @@ import com.github.pabrcno.be_project.domain.customers.Customer;
 import com.github.pabrcno.be_project.domain.customers.ICustomersDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +41,15 @@ public class CustomersController {
     @GetMapping(path= "{customerName}")
     public Customer getCustomerByName(@PathVariable("CustomerName") String customerName) {
         return customersDao.getCustomerByName(customerName);
+    }
+
+    @DeleteMapping(path= "{customerId}")
+    public void deleteCustomer(@PathVariable("CustomerId") UUID customerId) {
+        customersDao.deleteCustomer(customerId);
+    }
+    @PatchMapping(path= "{customerId}/updateName")
+    public void updateCustomer(@PathVariable("CustomerId") UUID customerId, @RequestBody Customer customer) {
+        customersDao.updateCustomer(customerId, customer);
     }
 
 }

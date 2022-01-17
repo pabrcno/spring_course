@@ -28,4 +28,11 @@ public class Customer implements IObserver {
     public void update(String message) {
         System.out.println("customer " + this.customerName + " got notified of if product was available: " + message);
     }
+    //setters
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
