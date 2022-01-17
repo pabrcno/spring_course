@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsersController {
     
     private final IUsersDao usersDao;
-
+    //LOGGER
+    
     @Autowired
     public UsersController(IUsersDao usersDao) {
         this.usersDao = usersDao;
