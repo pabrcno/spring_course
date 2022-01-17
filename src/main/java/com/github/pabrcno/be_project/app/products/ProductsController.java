@@ -45,12 +45,12 @@ public class ProductsController {
         return productsDao.getProductById(productId);
     }
 
-    @PostMapping(path="{productId}/emptyStock")
+    @PatchMapping(path="{productId}/emptyStock")
     public void emptyProductStock( @PathVariable("productId") UUID productId) {
         productsDao.emptyProductStock(productId);
     }
 
-    @PostMapping(path= "{productId}/updateStock")
+    @PatchMapping(path= "{productId}/updateStock")
     public void updateProductStock ( @PathVariable("productId") UUID productId, @RequestBody int stock) {
         productsDao.updateProductStock(productId, stock);
     }
