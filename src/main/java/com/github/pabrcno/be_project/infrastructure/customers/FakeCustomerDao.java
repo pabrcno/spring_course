@@ -1,14 +1,10 @@
 package com.github.pabrcno.be_project.infrastructure.customers;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import com.github.pabrcno.be_project.domain.core.FirstApplicationException;
 import com.github.pabrcno.be_project.domain.customers.ICustomersDao;
 import com.github.pabrcno.be_project.domain.customers.Customer;
-
 import org.springframework.stereotype.Repository;
 
 @Repository("fakeCustomersDao")
@@ -27,14 +23,14 @@ public class FakeCustomerDao implements ICustomersDao {
                 throw new FirstApplicationException("customer is null");
             }
     
-            if (customer.getname() == null || customer.getname().isEmpty()) {
+            if (customer.getName() == null || customer.getName().isEmpty()) {
                 throw new FirstApplicationException("customer name is null");
             }
     
             if (customer.getPassword() == null || customer.getPassword().isEmpty()) {
                 throw new FirstApplicationException("customer password is null");
             }
-            if( customers.stream().filter(u -> u.getname().equals(customer.getname())).count() > 0 ){
+            if( customers.stream().filter(u -> u.getName().equals(customer.getName())).count() > 0 ){
                 throw new FirstApplicationException("customer already exists");
             }
                 customers.add(customer);
@@ -42,7 +38,7 @@ public class FakeCustomerDao implements ICustomersDao {
 
     @Override
     public Customer getCustomerByName(String name) {
-        return customers.stream().filter(u -> u.getname().equals(name)).findFirst().orElse(null);
+        return customers.stream().filter(u -> u.getName().equals(name)).findFirst().orElse(null);
     }
 
     @Override
@@ -66,7 +62,7 @@ public class FakeCustomerDao implements ICustomersDao {
         if (oldCustomer == null) {
             throw new FirstApplicationException("customer not found");
         }
-        oldCustomer.setname(customer.getname());
+        oldCustomer.setName(customer.getName());
         oldCustomer.setPassword(customer.getPassword());
         
     }   

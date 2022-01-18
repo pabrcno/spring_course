@@ -15,7 +15,7 @@ public class Customer implements IObserver {
         this.password = password;
         this.id = UUID.randomUUID();
     }
-    public String getname() {
+    public String getName() {
         return name;
     }
     public String getPassword() {
@@ -29,7 +29,7 @@ public class Customer implements IObserver {
         System.out.println("customer " + this.name + " got notified of if product was available: " + message);
     }
     //setters
-    public void setname(String name) {
+    public void setName(String name) {
         this.name = name;
     }
     public void setPassword(String password) {
