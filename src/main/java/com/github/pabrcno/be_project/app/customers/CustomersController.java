@@ -35,20 +35,20 @@ public class CustomersController {
     }
 
     @GetMapping(path= "{customerId}")
-    public Customer getCustomerById(@PathVariable("CustomerId") UUID customerId) {
+    public Customer getCustomerById(@PathVariable("customerId") UUID customerId) {
         return customersService.getCustomerById(customerId);
     }
     @GetMapping(path= "{customerName}")
-    public Customer getCustomerByName(@PathVariable("CustomerName") String customerName) {
+    public Customer getCustomerByName(@PathVariable("customerName") String customerName) {
         return customersService.getCustomerByName(customerName);
     }
 
     @DeleteMapping(path= "{customerId}")
-    public void deleteCustomer(@PathVariable("CustomerId") UUID customerId) {
+    public void deleteCustomer(@PathVariable("customerId") UUID customerId) {
         customersService.deleteCustomer(customerId);
     }
-    @PatchMapping(path= "{customerId}/updateName")
-    public void updateCustomer(@PathVariable("CustomerId") UUID customerId, @RequestBody Customer customer) {
+    @PatchMapping(path= "{customerId}/update")
+    public void updateCustomer(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer) {
         customersService.updateCustomer(customerId, customer);
     }
 
