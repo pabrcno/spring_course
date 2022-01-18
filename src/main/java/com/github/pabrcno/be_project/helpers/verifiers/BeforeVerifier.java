@@ -32,4 +32,14 @@ public class BeforeVerifier {
             throw new FirstApplicationException("customer password is null");
         }
     }        
+
+    @Before("@annotation(com.github.pabrcno.be_project.domain.core.annotations.VerifyProduct)")
+    public void verifyProduct(JoinPoint jp) {
+        LOGGER.info("Before VerifyProduct annotation: " + jp.getSignature().getName());
+        var args = jp.getArgs();
+        var product = (String) args[0];
+        if (product == null || product.isEmpty()) {
+            throw new FirstApplicationException("product is null");
+        }
+    }
 }

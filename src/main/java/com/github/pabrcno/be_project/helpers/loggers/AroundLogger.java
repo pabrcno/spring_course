@@ -18,6 +18,22 @@ public class AroundLogger {
     public Object logAround(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         //log starting and ending time of the method
         LOGGER.info("Starting: " + proceedingJoinPoint.getSignature().getName());
+        LOGGER.info("With arguments: " + proceedingJoinPoint.getArgs());
+        final long startTime = System.currentTimeMillis();
+        final Object result = proceedingJoinPoint.proceed();
+        final long endTime = System.currentTimeMillis();
+        LOGGER.info("Ending: " + proceedingJoinPoint.getSignature().getName());
+        LOGGER.info("Execution time: " + (endTime - startTime) + " ms");
+        return result;
+    }
+
+    // log around all methods in the IProductsService interface
+
+    @Around("execution(* com.github.pabrcno.be_project.domain.products.IProductsService.*(..))")
+    public Object logAroundProducts(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        //log starting and ending time of the method
+        LOGGER.info("Starting: " + proceedingJoinPoint.getSignature().getName());
+        LOGGER.info("With arguments: " + proceedingJoinPoint.getArgs());
         final long startTime = System.currentTimeMillis();
         final Object result = proceedingJoinPoint.proceed();
         final long endTime = System.currentTimeMillis();

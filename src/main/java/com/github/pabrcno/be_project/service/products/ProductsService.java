@@ -1,5 +1,7 @@
 package com.github.pabrcno.be_project.service.products;
 import java.util.UUID;
+
+import com.github.pabrcno.be_project.domain.core.annotations.VerifyProduct;
 import com.github.pabrcno.be_project.domain.customers.Customer;
 import com.github.pabrcno.be_project.domain.customers.ICustomersDao;
 import com.github.pabrcno.be_project.domain.products.IProductsDao;
@@ -21,11 +23,13 @@ public class ProductsService implements IProductsService{
         this.productsDao = productsDao;
         this.customersDao = customersDao;
     }
+   
     @Override
     public Product[] getAllProducts() {
         return productsDao.getAllProducts();
     }
     
+    @VerifyProduct
     @Override
     public void addProduct(Product product) {
         productsDao.addProduct(product);
