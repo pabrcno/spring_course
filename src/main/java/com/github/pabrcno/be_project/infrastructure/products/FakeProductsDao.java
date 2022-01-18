@@ -9,14 +9,12 @@ import com.github.pabrcno.be_project.domain.core.Observer.IObserver;
 import com.github.pabrcno.be_project.domain.products.IProductsDao;
 import com.github.pabrcno.be_project.domain.products.Product;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 @Repository("fakeProductsDao")
 public class FakeProductsDao implements IProductsDao {
 
     private static List<Product> products = new ArrayList<Product>();
-    private static final Logger LOGGER = LogManager.getLogger(FakeProductsDao.class);
+
     
     @Override
     public Product[] getAllProducts() {

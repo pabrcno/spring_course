@@ -1,7 +1,5 @@
 package com.github.pabrcno.be_project.helpers.loggers;
 
-import java.time.Instant;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
