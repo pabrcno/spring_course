@@ -8,5 +8,5 @@ public interface ICustomersService {
     Customer getCustomerByName(String customerName);
     Customer getCustomerById(UUID id);
     void deleteCustomer(UUID id);
-    void updateCustomer(UUID id, Customer customer);
+    void updateCustomer( Customer customer, UUID id);
 }

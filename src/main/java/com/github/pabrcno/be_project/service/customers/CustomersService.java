@@ -3,6 +3,7 @@ import java.util.UUID;
 
 import com.github.pabrcno.be_project.domain.core.annotations.Delete;
 import com.github.pabrcno.be_project.domain.core.annotations.Update;
+import com.github.pabrcno.be_project.domain.core.annotations.VerifyCustomer;
 import com.github.pabrcno.be_project.domain.customers.Customer;
 import com.github.pabrcno.be_project.domain.customers.ICustomersDao;
 import com.github.pabrcno.be_project.domain.customers.ICustomersService;
@@ -23,6 +24,8 @@ public class CustomersService implements ICustomersService {
     public Customer[] getAllCustomers() {
         return customersDao.getAllCustomers();
     }
+
+    @VerifyCustomer
     @Override
     public void addCustomer(Customer customer ) {
         customersDao.addCustomer(customer);
@@ -45,8 +48,9 @@ public class CustomersService implements ICustomersService {
     }
     
     @Update
+    @VerifyCustomer
     @Override
-    public void updateCustomer( UUID customerId,Customer customer) {
+    public void updateCustomer( Customer customer, UUID customerId) {
         customersDao.updateCustomer(customerId, customer);
     }
 }

@@ -49,7 +49,7 @@ public class CustomersController {
     }
     @PatchMapping(path= "{customerId}/update")
     public void updateCustomer(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer) {
-        customersService.updateCustomer(customerId, customer);
+        customersService.updateCustomer(customer,customerId);
     }
 
 }

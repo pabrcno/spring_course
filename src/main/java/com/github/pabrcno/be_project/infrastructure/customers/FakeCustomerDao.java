@@ -19,22 +19,11 @@ public class FakeCustomerDao implements ICustomersDao {
 
     @Override
     public void addCustomer(Customer customer) {
-                if (customer == null) {
-                throw new FirstApplicationException("customer is null");
-            }
-    
-            if (customer.getName() == null || customer.getName().isEmpty()) {
-                throw new FirstApplicationException("customer name is null");
-            }
-    
-            if (customer.getPassword() == null || customer.getPassword().isEmpty()) {
-                throw new FirstApplicationException("customer password is null");
-            }
-            if( customers.stream().filter(u -> u.getName().equals(customer.getName())).count() > 0 ){
-                throw new FirstApplicationException("customer already exists");
-            }
-                customers.add(customer);
+        if( customers.stream().filter(u -> u.getName().equals(customer.getName())).count() > 0 ){
+            throw new FirstApplicationException("customer already exists");
         }
+                customers.add(customer);
+    }
 
     @Override
     public Customer getCustomerByName(String name) {
@@ -59,8 +48,8 @@ public class FakeCustomerDao implements ICustomersDao {
     @Override
     public void updateCustomer(UUID id, Customer customer) {
         Customer oldCustomer = getCustomerById(id);
-        if (oldCustomer == null) {
-            throw new FirstApplicationException("customer not found");
+        if( customers.stream().filter(u -> u.getName().equals(customer.getName())).count() > 0 ){
+            throw new FirstApplicationException("customer already exists");
         }
         oldCustomer.setName(customer.getName());
         oldCustomer.setPassword(customer.getPassword());

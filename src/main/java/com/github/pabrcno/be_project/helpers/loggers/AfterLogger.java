@@ -1,5 +1,7 @@
 package com.github.pabrcno.be_project.helpers.loggers;
 
+import java.time.Instant;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -14,11 +16,10 @@ public class AfterLogger {
     
     @After("@annotation(com.github.pabrcno.be_project.domain.core.annotations.Delete)")
     public void logAfterDelete(JoinPoint jp) {
-        LOGGER.info("After delete: " + jp.getSignature().getName());
+        LOGGER.info("After Delete annotation: " + jp.getSignature().getName());
     }
     @After("@annotation(com.github.pabrcno.be_project.domain.core.annotations.Update)")
     public void logAfterUpdate(JoinPoint jp) {
-        LOGGER.info("After Update: " + jp.getSignature().getName());
+        LOGGER.info("After Update annotation: " + jp.getSignature().getName());
     }
-
 }
