@@ -2,7 +2,7 @@ package com.github.pabrcno.be_project.infrastructure.products;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 import com.github.pabrcno.be_project.domain.core.FirstApplicationException;
 import com.github.pabrcno.be_project.domain.core.Observer.IObserver;
@@ -29,12 +29,12 @@ public class FakeProductsDao implements IProductsDao {
     }
 
     @Override
-    public Product getProductById(UUID productId) {
+    public Product getProductById(Integer productId) {
         return products.stream().filter(p -> p.getId().equals(productId)).findFirst().orElse(null);
     }
 
     @Override
-    public void emptyProductStock(UUID productId) {
+    public void emptyProductStock(Integer productId) {
         Product product = getProductById(productId);
         if (product == null) {
             throw new FirstApplicationException("Product not found");
@@ -44,7 +44,7 @@ public class FakeProductsDao implements IProductsDao {
     }
 
     @Override
-    public void updateProductStock(UUID productId, int stock) {
+    public void updateProductStock(Integer productId, int stock) {
         Product product = getProductById(productId);
         if (product == null) {
             throw new FirstApplicationException("Product not found");
@@ -54,7 +54,7 @@ public class FakeProductsDao implements IProductsDao {
     }
 
     @Override
-    public void addObserver(UUID productId, IObserver observer) {
+    public void addObserver(Integer productId, IObserver observer) {
         Product product = getProductById(productId);
         if (product == null) {
             throw new FirstApplicationException("Product not found");
@@ -63,7 +63,7 @@ public class FakeProductsDao implements IProductsDao {
     }
 
     @Override
-    public void removeObserver(UUID productId, IObserver observer) {
+    public void removeObserver(Integer productId, IObserver observer) {
         Product product = getProductById(productId);
         if (product == null) {
             throw new FirstApplicationException("Product not found");

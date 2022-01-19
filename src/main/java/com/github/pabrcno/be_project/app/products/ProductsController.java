@@ -1,4 +1,6 @@
 package com.github.pabrcno.be_project.app.products;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import com.github.pabrcno.be_project.domain.products.IProductsService;
 import com.github.pabrcno.be_project.domain.products.Product;
@@ -24,7 +26,7 @@ public class ProductsController {
     }
 
     @GetMapping
-    public Product[] getAllProducts() {
+    public List<Product> getAllProducts() {
         return productsService.getAllProducts();
     }
     
@@ -34,27 +36,27 @@ public class ProductsController {
     }
 
     @GetMapping(path="{productId}")
-    public Product getProductById(@PathVariable("productId") UUID productId) {
+    public Optional<Product> getProductById(@PathVariable("productId") Integer productId) {
         return productsService.getProductById(productId);
     }
 
     @PatchMapping(path="{productId}/emptyStock")
-    public void emptyProductStock( @PathVariable("productId") UUID productId) {
+    public void emptyProductStock( @PathVariable("productId") Integer productId) {
         productsService.emptyProductStock(productId);
     }
 
     @PatchMapping(path= "{productId}/updateStock")
-    public void updateProductStock ( @PathVariable("productId") UUID productId, @RequestBody int stock) {
+    public void updateProductStock ( @PathVariable("productId") Integer productId, @RequestBody int stock) {
         productsService.updateProductStock(productId, stock);
     }
 
     @PatchMapping(path ="{productId}/{customerId}/addObserver")
-    public void addObserver(@PathVariable("productId") UUID productId, @PathVariable("customerId") UUID customerId) {
+    public void addObserver(@PathVariable("productId") Integer productId, @PathVariable("customerId") UUID customerId) {
         productsService.addObserver(productId, customerId);
     }
 
     @PatchMapping(path= "{productId}/{customerId}/removeObserver")
-    public void removeObserver(@PathVariable("productId") UUID productId, @PathVariable("customerId") UUID customerId) {
+    public void removeObserver(@PathVariable("productId") Integer productId, @PathVariable("customerId") UUID customerId) {
         productsService.removeObserver(productId, customerId);
     }
 }

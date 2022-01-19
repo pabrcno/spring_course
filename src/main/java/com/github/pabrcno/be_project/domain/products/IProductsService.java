@@ -1,14 +1,17 @@
 package com.github.pabrcno.be_project.domain.products;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
 public interface IProductsService {
-    Product[] getAllProducts();
+        List<Product> getAllProducts();
         void addProduct(Product product);
-        Product getProductById(UUID productId);
-        void emptyProductStock(UUID productId);
-        void updateProductStock(UUID productId, int stock);
-        void addObserver(UUID productId,UUID customerId);
-        void removeObserver(UUID productId, UUID customerId);
+        Optional<Product> getProductById(Integer productId);
+        void emptyProductStock(Integer productId);
+        void updateProductStock(Integer productId, int stock);
+        void deleteProduct(Integer productId);
+        void addObserver(Integer productId,UUID customerId);
+        void removeObserver(Integer productId, UUID customerId);
 }

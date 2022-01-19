@@ -3,17 +3,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.pabrcno.be_project.domain.core.Observer.IObserver;
 import com.github.pabrcno.be_project.domain.core.Observer.ISubject;
-
+@Entity
+@Table(name = "ecommerce")
 public class Product implements ISubject{
 
     private String name;
     private String description;
     private double price;
     private int stock;
-    private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    private UUID code;
     private List<IObserver> observers;
     private boolean isAvailable;
 
@@ -23,7 +33,7 @@ public class Product implements ISubject{
         @JsonProperty("description") String description,
         @JsonProperty("price") double price,
         @JsonProperty("stock") int stock) {
-        this.id = UUID.randomUUID();
+        this.setCode(UUID.randomUUID());
         this.name = name;
         this.description = description;
         this.price = price;
@@ -33,6 +43,16 @@ public class Product implements ISubject{
     }
     
    
+    public UUID getCode() {
+        return code;
+    }
+
+
+    public void setCode(UUID code) {
+        this.code = code;
+    }
+
+
     @Override
     public void registerObserver(IObserver observer) {
         observers.add(observer);
@@ -88,7 +108,7 @@ public class Product implements ISubject{
         this.isAvailable = this.stock>0;
         notifyObservers();
     }
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
     
