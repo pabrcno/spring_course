@@ -1,0 +1,17 @@
+spring:
+  data:
+    mongo:
+      uri: mongodb://localhost:27017/coderhouse
+  profiles:
+    active: dev
+  cache: redis
+  redis:
+    host: http://localhost
+    port: 6379
+    timeOfLife: 60000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
