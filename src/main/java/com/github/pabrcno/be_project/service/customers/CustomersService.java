@@ -1,56 +1,51 @@
 package com.github.pabrcno.be_project.service.customers;
-import java.util.UUID;
 
-import com.github.pabrcno.be_project.domain.core.annotations.Delete;
-import com.github.pabrcno.be_project.domain.core.annotations.Update;
-import com.github.pabrcno.be_project.domain.core.annotations.VerifyCustomer;
+
 import com.github.pabrcno.be_project.domain.customers.Customer;
-import com.github.pabrcno.be_project.domain.customers.ICustomersDao;
+
 import com.github.pabrcno.be_project.domain.customers.ICustomersService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.github.pabrcno.be_project.infrastructure.customers.CustomerRepository;
+
 import org.springframework.stereotype.Service;
 
-@Service
-public class CustomersService implements ICustomersService {
-    private final ICustomersDao customersDao;
-  
-    @Autowired
-    public CustomersService(@Qualifier("fakeCustomersDao") ICustomersDao customersDao) {
-        this.customersDao = customersDao;
-    }
+import lombok.AllArgsConstructor;
 
+@Service
+@AllArgsConstructor
+public class CustomersService implements ICustomersService {
+    CustomerRepository repo;
     @Override
     public Customer[] getAllCustomers() {
-        return customersDao.getAllCustomers();
+        return repo.findAll().toArray(new Customer[0]);
     }
 
-    @VerifyCustomer
-    @Override
-    public void addCustomer(Customer customer ) {
-        customersDao.addCustomer(customer);
-    }
 
     @Override
-    public Customer getCustomerById(UUID customerId) {
-        return customersDao.getCustomerById(customerId);
+    public void addCustomer(Customer Customer) {
+        repo.save(Customer);
+        
     }
 
     @Override
     public Customer getCustomerByName(String customerName) {
-        return customersDao.getCustomerByName(customerName);
+        // TODO Auto-generated method stub
+        return null;
     }
 
-    @Delete
     @Override
-    public void deleteCustomer(UUID customerId) {
-        customersDao.deleteCustomer(customerId);
+    public Customer getCustomerById(String id) {
+       return repo.findById(id).get();
     }
-    
-    @Update
-    @VerifyCustomer
+
     @Override
-    public void updateCustomer( Customer customer, UUID customerId) {
-        customersDao.updateCustomer(customerId, customer);
+    public void deleteCustomer(String id) {
+        repo.delete(getCustomerById(id));
+        
     }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        repo.save(customer);
+    }
+ 
 }

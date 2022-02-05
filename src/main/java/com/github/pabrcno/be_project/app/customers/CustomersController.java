@@ -1,6 +1,5 @@
 package com.github.pabrcno.be_project.app.customers;
 
-import java.util.UUID;
 import com.github.pabrcno.be_project.domain.customers.Customer;
 import com.github.pabrcno.be_project.domain.customers.ICustomersService;
 
@@ -35,7 +34,7 @@ public class CustomersController {
     }
 
     @GetMapping(path= "{customerId}")
-    public Customer getCustomerById(@PathVariable("customerId") UUID customerId) {
+    public Customer getCustomerById(@PathVariable("customerId") String customerId) {
         return customersService.getCustomerById(customerId);
     }
     @GetMapping(path= "{customerName}")
@@ -44,12 +43,12 @@ public class CustomersController {
     }
 
     @DeleteMapping(path= "{customerId}")
-    public void deleteCustomer(@PathVariable("customerId") UUID customerId) {
+    public void deleteCustomer(@PathVariable("customerId") String customerId) {
         customersService.deleteCustomer(customerId);
     }
     @PatchMapping(path= "{customerId}/update")
-    public void updateCustomer(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer) {
-        customersService.updateCustomer(customer,customerId);
+    public void updateCustomer( @RequestBody Customer customer) {
+        customersService.updateCustomer(customer);
     }
 
 }

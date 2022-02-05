@@ -3,21 +3,21 @@ package com.github.pabrcno.be_project.helpers.verifiers;
 import com.github.pabrcno.be_project.domain.core.FirstApplicationException;
 import com.github.pabrcno.be_project.domain.customers.Customer;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Aspect
 @Component
+@Slf4j
 public class BeforeVerifier {
-    private static final Logger LOGGER = LogManager.getLogger(BeforeVerifier.class);
     
     @Before("@annotation(com.github.pabrcno.be_project.domain.core.annotations.VerifyCustomer)")
     public void verifyCustomer(JoinPoint jp) {
-        LOGGER.info("Before VerifyCustomer annotation: " + jp.getSignature().getName());
+        log.info("Before VerifyCustomer annotation: " + jp.getSignature().getName());
         var args = jp.getArgs();
         Customer customer = (Customer) args[0];
         if (customer == null) {
@@ -35,7 +35,7 @@ public class BeforeVerifier {
 
     @Before("@annotation(com.github.pabrcno.be_project.domain.core.annotations.VerifyProduct)")
     public void verifyProduct(JoinPoint jp) {
-        LOGGER.info("Before VerifyProduct annotation: " + jp.getSignature().getName());
+        log.info("Before VerifyProduct annotation: " + jp.getSignature().getName());
         var args = jp.getArgs();
         var product = (String) args[0];
         if (product == null || product.isEmpty()) {
