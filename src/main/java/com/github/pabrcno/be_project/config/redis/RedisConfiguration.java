@@ -1,4 +1,4 @@
-package com.github.pabrcno.be_project.config;
+package com.github.pabrcno.be_project.config.redis;
 
 
 import lombok.RequiredArgsConstructor;
