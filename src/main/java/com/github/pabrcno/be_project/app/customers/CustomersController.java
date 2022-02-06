@@ -11,44 +11,49 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.AllArgsConstructor;
 
 
 @RequestMapping("/api/v1/customers")
 @RestController
+@AllArgsConstructor
 public class CustomersController {
     
-    private final ICustomersService customersService;
+    private final ICustomersService service;
     
-    @Autowired
-    public CustomersController(ICustomersService customersService) {
-        this.customersService = customersService;
+    @PostMapping("login")
+    public Customer login(@RequestParam("customer") String customerName, @RequestParam("password") String pwd)
+            throws Exception {
+        return service.getCustomer(customerName, pwd);
     }
     @GetMapping()
     public Customer[] getAllCustomers() {
-        return customersService.getAllCustomers();
+        return service.getAllCustomers();
     }
     @PostMapping
     public void addCustomer(@RequestBody Customer customer ) {
-        customersService.addCustomer(customer);
+        service.addCustomer(customer);
     }
 
     @GetMapping(path= "{customerId}")
     public Customer getCustomerById(@PathVariable("customerId") String customerId) {
-        return customersService.getCustomerById(customerId);
+        return service.getCustomerById(customerId);
     }
     @GetMapping(path= "{customerName}")
     public Customer getCustomerByName(@PathVariable("customerName") String customerName) {
-        return customersService.getCustomerByName(customerName);
+        return service.getCustomerByName(customerName);
     }
 
     @DeleteMapping(path= "{customerId}")
     public void deleteCustomer(@PathVariable("customerId") String customerId) {
-        customersService.deleteCustomer(customerId);
+        service.deleteCustomer(customerId);
     }
     @PatchMapping(path= "{customerId}/update")
     public void updateCustomer( @RequestBody Customer customer) {
-        customersService.updateCustomer(customer);
+        service.updateCustomer(customer);
     }
 
 }

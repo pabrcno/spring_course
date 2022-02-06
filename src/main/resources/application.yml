@@ -9,6 +9,13 @@ spring:
     host: http://localhost
     port: 6379
     timeOfLife: 60000
+  security:
+    user:
+      name: coderhouse
+      password: 123
+jwt:
+  expiration: 60000
+  secret: springbootjwtcoderhouse
 
 management:
   endpoints:
