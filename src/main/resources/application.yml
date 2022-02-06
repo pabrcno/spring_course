@@ -14,7 +14,7 @@ spring:
       name: coderhouse
       password: 123
 jwt:
-  expiration: 60000
+  expiration: 600000
   secret: springbootjwtcoderhouse
 
 management:

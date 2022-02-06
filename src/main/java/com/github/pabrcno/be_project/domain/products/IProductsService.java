@@ -8,7 +8,6 @@ public interface IProductsService {
         List<Product> getAllProducts();
         void addProduct(Product product);
         Optional<Product> getProductById(String productId);
-        void emptyProductStock(String productId);
-        void updateProductStock(String productId, int stock);
         void deleteProduct(String productId);
+        Optional<List<Product>> getProductsByCategory(String category);
 }

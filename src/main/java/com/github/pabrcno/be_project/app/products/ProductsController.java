@@ -4,8 +4,9 @@ import java.util.Optional;
 
 import com.github.pabrcno.be_project.domain.products.IProductsService;
 import com.github.pabrcno.be_project.domain.products.Product;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,14 +38,9 @@ public class ProductsController {
         return productsService.getProductById(productId);
     }
 
-    @PatchMapping(path="{productId}/emptyStock")
-    public void emptyProductStock( @PathVariable("productId") String productId) {
-        productsService.emptyProductStock(productId);
-    }
-
-    @PatchMapping(path= "{productId}/updateStock")
-    public void updateProductStock ( @PathVariable("productId") String productId, @RequestBody int stock) {
-        productsService.updateProductStock(productId, stock);
+    @GetMapping(path="category/{category}")
+    public Optional<List<Product>> getProductsByCategory(@PathVariable("category") String category) {
+        return productsService.getProductsByCategory(category);
     }
 
 }
