@@ -3,7 +3,6 @@ package com.github.pabrcno.be_project.app.customers;
 import com.github.pabrcno.be_project.domain.customers.Customer;
 import com.github.pabrcno.be_project.domain.customers.ICustomersService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
