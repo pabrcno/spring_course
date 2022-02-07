@@ -36,7 +36,7 @@ public class CacheClient<T> implements ICacheClient<T> {
     @Override
     public T save(String key, T data) {
         try {
-            hashOperations.put("", key, serializeItem(data));
+            hashOperations.put("map", key, serializeItem(data));
             return data;
         } catch (JsonProcessingException e) {
             log.error("Error converting message to string", e);
