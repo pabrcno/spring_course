@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.github.pabrcno.be_project.domain.cart.Cart;
 import com.github.pabrcno.be_project.domain.cart.CartProductRequest;
+import com.github.pabrcno.be_project.domain.cart.CartRequest;
 import com.github.pabrcno.be_project.domain.cart.ICartService;
 import com.github.pabrcno.be_project.handle.exceptions.ApiRestTokenException;
 
@@ -44,9 +45,9 @@ public class CartController {
     public Optional<Cart> getCart(@PathVariable("cartId") String cartId) {
         return cartService.getCart(cartId);
     }
-    @PostMapping(path= "create/{customerId}")
-    public Cart createCart(@PathVariable("customerId") String customerId) {
-        return cartService.createCart(customerId);
+    @PostMapping(path= "create")
+    public Cart createCart(@RequestBody CartRequest cart) {
+        return cartService.createCart(cart);
     }
     
 }

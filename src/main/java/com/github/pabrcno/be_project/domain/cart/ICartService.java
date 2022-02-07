@@ -10,6 +10,6 @@ public interface ICartService {
     void updateProduct(String cartId, CartProductRequest product) throws ApiRestTokenException;
     void clearCart(String cartId);
     Optional<Cart> getCart(String cartId);
-    Cart createCart(String customerId);
+    Cart createCart(CartRequest cart);
     Optional<Cart> getCartByCustomerId(String customerId);
 }

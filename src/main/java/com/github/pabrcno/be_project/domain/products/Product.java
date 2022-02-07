@@ -13,7 +13,7 @@ import lombok.Setter;
 @Document(collection = "products")
 @Getter @Setter
 public class Product {
-    @Id
+    @MongoId
     private String id;
     private String name;
     private String description;

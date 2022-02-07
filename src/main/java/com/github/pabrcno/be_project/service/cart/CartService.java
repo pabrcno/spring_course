@@ -1,11 +1,11 @@
 package com.github.pabrcno.be_project.service.cart;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 import com.github.pabrcno.be_project.domain.cart.Cart;
 import com.github.pabrcno.be_project.domain.cart.CartProduct;
 import com.github.pabrcno.be_project.domain.cart.CartProductRequest;
+import com.github.pabrcno.be_project.domain.cart.CartRequest;
 import com.github.pabrcno.be_project.domain.cart.ICartService;
 import com.github.pabrcno.be_project.handle.exceptions.ApiRestTokenException;
 import com.github.pabrcno.be_project.infrastructure.cart.CartRepository;
@@ -70,8 +70,8 @@ public class CartService implements ICartService{
     }
 
     @Override
-    public Cart createCart(String customerId) {
-        Cart cart = Cart.builder().customerId(customerId).products(new ArrayList<>()).build();
+    public Cart createCart(CartRequest cartRequest) {
+        Cart cart = Cart.from(cartRequest);
         repo.save(cart);
         return cart;
     }

@@ -25,7 +25,7 @@ public class Customer {
     private String email;
     @Encrypted
     private String password;
-    @Id 
+    @MongoId 
     private String id;
     public Customer from(CustomerRequest request) {
         return Customer.builder()
