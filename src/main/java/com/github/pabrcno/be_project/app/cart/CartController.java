@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.github.pabrcno.be_project.domain.cart.Cart;
 import com.github.pabrcno.be_project.domain.cart.CartProductRequest;
 import com.github.pabrcno.be_project.domain.cart.ICartService;
+import com.github.pabrcno.be_project.handle.exceptions.ApiRestTokenException;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -24,15 +25,15 @@ public class CartController {
     final ICartService cartService;
 
     @PatchMapping(path = "add/{cartId}")
-    public void addProduct(@PathVariable("cartId") String cartId, @RequestBody CartProductRequest cartProductRequest) {
+    public void addProduct(@PathVariable("cartId") String cartId, @RequestBody CartProductRequest cartProductRequest) throws ApiRestTokenException {
         cartService.addProduct(cartId, cartProductRequest);
     }
     @PatchMapping(path = "remove/{cartId}/{productId}")
-    public void removeProduct(@PathVariable("cartId") String cartId,@PathVariable("productId") String productId) {
+    public void removeProduct(@PathVariable("cartId") String cartId,@PathVariable("productId") String productId) throws ApiRestTokenException {
         cartService.removeProduct(cartId, productId);
     }
     @PatchMapping(path= "{cartId}")
-    public void updateProduct(@PathVariable("cartId") String cartId, @RequestBody CartProductRequest cartProductRequest) {
+    public void updateProduct(@PathVariable("cartId") String cartId, @RequestBody CartProductRequest cartProductRequest) throws ApiRestTokenException {
         cartService.updateProduct(cartId, cartProductRequest);
     }
     @PatchMapping(path= "clear/{cartId}")

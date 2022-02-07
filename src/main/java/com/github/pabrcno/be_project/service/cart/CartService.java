@@ -7,6 +7,7 @@ import com.github.pabrcno.be_project.domain.cart.Cart;
 import com.github.pabrcno.be_project.domain.cart.CartProduct;
 import com.github.pabrcno.be_project.domain.cart.CartProductRequest;
 import com.github.pabrcno.be_project.domain.cart.ICartService;
+import com.github.pabrcno.be_project.handle.exceptions.ApiRestTokenException;
 import com.github.pabrcno.be_project.infrastructure.cart.CartRepository;
 
 import org.springframework.stereotype.Service;
@@ -18,10 +19,10 @@ public class CartService implements ICartService{
     private final CartRepository repo;
 
     @Override
-    public void addProduct(String cartId, CartProductRequest productReq) {
-        Cart cart = getCart(cartId).orElse(null);  
+    public void addProduct(String cartId, CartProductRequest productReq) throws ApiRestTokenException  {
+        Cart cart = getCart(cartId).orElse(null);
         if(cart == null) {
-           throw new RuntimeException("Cart not found");
+            throw new ApiRestTokenException("Customer not found");
         }   
         CartProduct cartProduct = CartProduct.builder()
                 .productId(productReq.getProductId())
@@ -32,17 +33,22 @@ public class CartService implements ICartService{
     }
 
     @Override
-    public void removeProduct(String cartId, String productId) {
+    public void removeProduct(String cartId, String productId) throws ApiRestTokenException {
         Optional<Cart> cart = getCart(cartId);
-        if(cart == null) return;
+        if(cart == null) {
+            throw new ApiRestTokenException("Customer not found");
+        }   
         cart.get().getProducts().removeIf(p -> p.getProductId().equals(productId));
         repo.save(cart.get());
         
     }
 
     @Override
-    public void updateProduct(String cartId, CartProductRequest productReq) {
+    public void updateProduct(String cartId, CartProductRequest productReq) throws ApiRestTokenException {
         Cart cart = getCart(cartId).orElse(null);
+        if(cart == null) {
+            throw new ApiRestTokenException("Customer not found");
+        }   
         CartProduct cartProduct = cart.getProducts().stream()
                 .filter(cartProduct1 -> cartProduct1.getProductId().equals(productReq.getProductId()))
                 .findFirst()
