@@ -17,15 +17,15 @@ public class BeforeVerifier {
     
     @Before("@annotation(com.github.pabrcno.be_project.domain.core.annotations.VerifyCustomer)")
     public void verifyCustomer(JoinPoint jp) throws ApiRestException {
-        log.info("Before VerifyCustomer annotation: " + jp.getSignature().getName());
+        log.info("Before VerifyCustomer annotation: " + ((Customer) jp.getSignature()).getEmail());
         var args = jp.getArgs();
         Customer customer = (Customer) args[0];
         if (customer == null) {
             throw new ApiRestException( "Customer is null");
         }
 
-        if (customer.getName() == null || customer.getName().isEmpty()) {
-            throw new ApiRestException("customer name is null");
+        if (customer.getEmail() == null || customer.getEmail().isEmpty()) {
+            throw new ApiRestException("customer Email is null");
         }
 
         if (customer.getPassword() == null || customer.getPassword().isEmpty()) {

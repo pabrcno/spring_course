@@ -20,11 +20,19 @@ import lombok.Setter;
 @Builder
 @Getter @Setter
 public class Customer {
+    private String username;
     private String token;
-    private String name;
+    private String email;
     @Encrypted
     private String password;
     @MongoId
     @Id 
     private String id;
+    public Customer from(CustomerRequest request) {
+        return Customer.builder()
+                .username(request.getUsername())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .build();
+    }
 }
