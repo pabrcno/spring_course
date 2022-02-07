@@ -25,7 +25,6 @@ public class Customer {
     private String email;
     @Encrypted
     private String password;
-    @MongoId
     @Id 
     private String id;
     public Customer from(CustomerRequest request) {

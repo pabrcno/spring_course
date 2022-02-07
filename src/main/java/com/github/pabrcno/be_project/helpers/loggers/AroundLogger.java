@@ -41,4 +41,19 @@ public class AroundLogger {
         log.info("Execution time: " + (endTime - startTime) + " ms");
         return result;
     }
+
+    // log around all methods in the ICartService interface
+
+    @Around("execution(* com.github.pabrcno.be_project.domain.cart.ICartService.*(..))")
+    public Object logAroundCart(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        //log starting and ending time of the method
+        log.info("Starting: " + proceedingJoinPoint.getSignature().getName());
+        log.info("With arguments: " + proceedingJoinPoint.getArgs());
+        final long startTime = System.currentTimeMillis();
+        final Object result = proceedingJoinPoint.proceed();
+        final long endTime = System.currentTimeMillis();
+        log.info("Ending: " + proceedingJoinPoint.getSignature().getName());
+        log.info("Execution time: " + (endTime - startTime) + " ms");
+        return result;
+    }
 }
