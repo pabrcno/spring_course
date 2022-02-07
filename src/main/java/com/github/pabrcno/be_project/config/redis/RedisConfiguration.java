@@ -3,6 +3,7 @@ package com.github.pabrcno.be_project.config.redis;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,10 +19,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableAutoConfiguration(exclude = {org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class})
 public class RedisConfiguration {
 
+    private final  ApplicationProperties applicationProperties;
 
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
-        var config = new RedisStandaloneConfiguration("127.0.0.1", 6379);
+        var config = new RedisStandaloneConfiguration(applicationProperties.getHost(), applicationProperties.getPort());
         return new JedisConnectionFactory(config);
     }
 
@@ -33,5 +35,4 @@ public class RedisConfiguration {
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         return redisTemplate;
     }
-
 }
