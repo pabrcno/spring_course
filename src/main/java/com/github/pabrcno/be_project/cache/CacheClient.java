@@ -6,7 +6,7 @@ import javax.annotation.PostConstruct;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.github.pabrcno.be_project.config.redis.ApplicationProperties;
 
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @RequiredArgsConstructor
 public class CacheClient<T> implements ICacheClient<T> {
-
+    private final ApplicationProperties applicationProperties;
     private final RedisTemplate<String, T> redisTemplate;
     private HashOperations<String, String, String> hashOperations;
     private final ObjectMapper mapper;
@@ -28,7 +28,7 @@ public class CacheClient<T> implements ICacheClient<T> {
     @PostConstruct
     void setHashOperations() {
         hashOperations = redisTemplate.opsForHash();
-        this.redisTemplate.expire("map", Duration.ofMillis(60000));
+        this.redisTemplate.expire("map", Duration.ofMillis(applicationProperties.getTimeOfLife()));
     }
 
 

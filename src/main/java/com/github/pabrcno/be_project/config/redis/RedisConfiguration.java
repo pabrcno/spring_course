@@ -15,11 +15,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 
 @Configuration
-// @RequiredArgsConstructor
+@RequiredArgsConstructor
 @EnableAutoConfiguration(exclude = {org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class})
 public class RedisConfiguration {
-    @Autowired
-    private ApplicationProperties applicationProperties;
+
+    private final  ApplicationProperties applicationProperties;
 
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {

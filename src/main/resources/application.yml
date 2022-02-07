@@ -6,7 +6,7 @@ spring:
     active: dev
   cache: redis
   redis:
-    host: http://localhost
+    host: 127.0.0.1
     port: 6379
     timeOfLife: 60000
   security:
