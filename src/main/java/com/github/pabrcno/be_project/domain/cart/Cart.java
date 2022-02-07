@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +20,7 @@ import lombok.Builder.Default;
 @Builder
 @Getter @Setter
 public class Cart {
-    @MongoId
+    @Id
     String id;
     @Default
     String createdAt = LocalDateTime.now().toString();
