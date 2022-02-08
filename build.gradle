@@ -11,6 +11,9 @@ sourceCompatibility = '11'
 repositories {
 	mavenCentral()
 }
+ext {
+	set('springCloudVersion', "2021.0.0")
+}
 
 dependencies {
 	
@@ -23,18 +26,25 @@ dependencies {
 	implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
-	
+
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'redis.clients:jedis'
-
+	implementation 'org.springframework.cloud:spring-cloud-config-server'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
 	testCompileOnly 'org.projectlombok:lombok:1.18.22'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
 test {
 	useJUnitPlatform()
 }
