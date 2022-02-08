@@ -8,6 +8,7 @@ import com.github.pabrcno.be_project.domain.cart.Cart;
 import com.github.pabrcno.be_project.domain.cart.ICartService;
 import com.github.pabrcno.be_project.domain.customers.CustomerResponse;
 import com.github.pabrcno.be_project.domain.customers.ICustomersService;
+import com.github.pabrcno.be_project.domain.email.IEmailService;
 import com.github.pabrcno.be_project.domain.order.IOrderService;
 import com.github.pabrcno.be_project.domain.order.Order;
 import com.github.pabrcno.be_project.domain.order.OrderProduct;
@@ -15,7 +16,6 @@ import com.github.pabrcno.be_project.domain.products.IProductsService;
 import com.github.pabrcno.be_project.domain.products.Product;
 import com.github.pabrcno.be_project.handle.exceptions.ApiRestTokenException;
 import com.github.pabrcno.be_project.infrastructure.order.OrderRepository;
-import com.github.pabrcno.be_project.service.email.EmailService;
 
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class OrderService implements IOrderService{
     private final ICustomersService customersService;
     private final ICartService cartService;
     private final IProductsService productService;
-    private final EmailService emailService;
+    private final IEmailService emailService;
 
     @Override
     public Order createOrder(String cartId) throws ApiRestTokenException {

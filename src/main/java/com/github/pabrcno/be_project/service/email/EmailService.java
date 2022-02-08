@@ -1,5 +1,6 @@
 package com.github.pabrcno.be_project.service.email;
 
+import com.github.pabrcno.be_project.domain.email.IEmailService;
 import com.github.pabrcno.be_project.domain.order.Order;
 
 import org.springframework.mail.SimpleMailMessage;
@@ -10,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class EmailService {
+public class EmailService implements IEmailService {
 
     final private JavaMailSender emailSender;
 
