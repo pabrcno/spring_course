@@ -4,9 +4,10 @@ import java.util.Optional;
 
 import com.github.pabrcno.be_project.domain.cart.Cart;
 import com.github.pabrcno.be_project.domain.cart.CartProduct;
-import com.github.pabrcno.be_project.domain.cart.CartProductRequest;
 import com.github.pabrcno.be_project.domain.cart.CartRequest;
 import com.github.pabrcno.be_project.domain.cart.ICartService;
+import com.github.pabrcno.be_project.domain.core.annotations.VerifyCart;
+import com.github.pabrcno.be_project.domain.core.annotations.VerifyCartProduct;
 import com.github.pabrcno.be_project.handle.exceptions.ApiRestTokenException;
 import com.github.pabrcno.be_project.infrastructure.cart.CartRepository;
 
@@ -17,9 +18,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CartService implements ICartService{
     private final CartRepository repo;
-
+    @VerifyCartProduct
     @Override
-    public void addProduct(String cartId, CartProductRequest productReq) throws ApiRestTokenException  {
+    public void addProduct(String cartId, CartProduct productReq) throws ApiRestTokenException  {
         Cart cart = getCart(cartId).orElse(null);
         if(cart == null) {
             throw new ApiRestTokenException("Customer not found");
@@ -42,9 +43,9 @@ public class CartService implements ICartService{
         repo.save(cart.get());
         
     }
-
+    @VerifyCartProduct
     @Override
-    public void updateProduct(String cartId, CartProductRequest productReq) throws ApiRestTokenException {
+    public void updateProduct(String cartId, CartProduct productReq) throws ApiRestTokenException {
         Cart cart = getCart(cartId).orElse(null);
         if(cart == null) {
             throw new ApiRestTokenException("Customer not found");
@@ -69,6 +70,8 @@ public class CartService implements ICartService{
         return repo.findById(cartId);
     }
 
+
+    @VerifyCart
     @Override
     public Cart createCart(CartRequest cartRequest) {
         Cart cart = Cart.from(cartRequest);

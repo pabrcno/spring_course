@@ -1,6 +1,9 @@
 package com.github.pabrcno.be_project.helpers.verifiers;
 
+import com.github.pabrcno.be_project.domain.cart.CartProduct;
+import com.github.pabrcno.be_project.domain.cart.CartRequest;
 import com.github.pabrcno.be_project.domain.customers.Customer;
+import com.github.pabrcno.be_project.domain.products.Product;
 import com.github.pabrcno.be_project.handle.exceptions.ApiRestException;
 
 import org.aspectj.lang.JoinPoint;
@@ -37,9 +40,62 @@ public class BeforeVerifier {
     public void verifyProduct(JoinPoint jp) throws ApiRestException {
         log.info("Before VerifyProduct annotation: " + jp.getSignature().getName());
         var args = jp.getArgs();
-        var product = (String) args[0];
-        if (product == null || product.isEmpty()) {
-            throw new ApiRestException("product is null");
+        var product = (Product) args[0];
+        if (product == null) {
+            throw new ApiRestException( "Product is null");
+        }
+
+        if (product.getName() == null || product.getName().isEmpty()) {
+            throw new ApiRestException("product name is null");
+        }
+
+        if (product.getPrice() == 0) {
+            throw new ApiRestException("product price is null");
+        }
+
+        if (product.getDescription() == null || product.getDescription().isEmpty()) {
+            throw new ApiRestException("product description is null");
+        }
+
+        if (product.getCategory() == null || product.getCategory().isEmpty()) {
+            throw new ApiRestException("product category is null");
+        }
+
+
+    }
+
+    @Before("@annotation(com.github.pabrcno.be_project.domain.core.annotations.VerifyCart)")
+    public void verifyCart(JoinPoint jp) throws ApiRestException {
+        log.info("Before VerifyCart annotation: " + jp.getSignature().getName());
+        var args = jp.getArgs();
+        CartRequest cart = (CartRequest)args[0];
+        if (cart == null) {
+            throw new ApiRestException("cart is null");
+        }
+        if (cart.getCustomerId() == null || cart.getCustomerId().isEmpty()) {
+            throw new ApiRestException("cart customerId is null");
+        }
+        
+        if (cart.getDeliverAddress() == null || cart.getDeliverAddress().isEmpty()) {
+            throw new ApiRestException("cart deliverAddress is null");
+        }
+        
+    }
+
+
+    @Before("@annotation(com.github.pabrcno.be_project.domain.core.annotations.VerifyCartProduct)")
+    public void verifyCartProduct(JoinPoint jp) throws ApiRestException {
+        log.info("Before VerifyCartProduct annotation: " + jp.getSignature().getName());
+        var args = jp.getArgs();
+        var cartProduct = (CartProduct) args[1];
+        if (cartProduct == null) {
+            throw new ApiRestException("cartProduct is null");
+        }
+        if (cartProduct.getProductId() == null || cartProduct.getProductId().isEmpty()) {
+            throw new ApiRestException("cartProduct productId is null");
+        }
+        if (cartProduct.getQuantity() == null) {
+            throw new ApiRestException("cartProduct quantity is null");
         }
     }
 }
