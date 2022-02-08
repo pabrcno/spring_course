@@ -34,7 +34,7 @@ dependencies {
 	implementation 'redis.clients:jedis'
 	implementation 'org.springframework.cloud:spring-cloud-config-server'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	testCompileOnly 'org.projectlombok:lombok:1.18.22'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 }

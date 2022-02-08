@@ -15,6 +15,7 @@ import com.github.pabrcno.be_project.domain.products.IProductsService;
 import com.github.pabrcno.be_project.domain.products.Product;
 import com.github.pabrcno.be_project.handle.exceptions.ApiRestTokenException;
 import com.github.pabrcno.be_project.infrastructure.order.OrderRepository;
+import com.github.pabrcno.be_project.service.email.EmailService;
 
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class OrderService implements IOrderService{
     private final ICustomersService customersService;
     private final ICartService cartService;
     private final IProductsService productService;
-
+    private final EmailService emailService;
 
     @Override
     public Order createOrder(String cartId) throws ApiRestTokenException {
@@ -52,6 +53,7 @@ public class OrderService implements IOrderService{
                 .deliverAddress(cart.getDeliverAddress())
                 .products(orderProducts)
                 .build();
+        emailService.sendOrderConfirmationEmail(customer.getEmail(), order);
         return repo.save(order);
     }
 
