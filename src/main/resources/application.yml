@@ -28,7 +28,7 @@ spring:
           starttls:
             enable: true
 jwt:
-  expiration: 600000
+  expiration: 1800000
   secret: springbootjwtcoderhouse
 
 management:
