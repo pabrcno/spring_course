@@ -1,38 +1,36 @@
 package com.github.pabrcno.be_project.domain.customers;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.pabrcno.be_project.domain.core.Observer.IObserver;
 
-public class Customer implements IObserver {
-    private String name;
+import com.bol.secure.Encrypted;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+
+@AllArgsConstructor
+@RequiredArgsConstructor
+@Document(collection = "customers")
+@Builder
+@Getter @Setter
+public class Customer {
+    private String username;
+    private String token;
+    private String email;
+    @Encrypted
     private String password;
-    private UUID id;
-    public Customer( 
-        @JsonProperty("name") String name,
-        @JsonProperty("password") String password
-    ) {
-        this.name = name;
-        this.password = password;
-        this.id = UUID.randomUUID();
-    }
-    public String getName() {
-        return name;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public UUID getId() {
-        return id;
-    }
-    @Override
-    public void update(String message) {
-        System.out.println("customer " + this.name + " got notified of if product was available: " + message);
-    }
-    //setters
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setPassword(String password) {
-        this.password = password;
+    @Id 
+    private String id;
+    public Customer from(CustomerRequest request) {
+        return Customer.builder()
+                .username(request.getUsername())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .build();
     }
 }

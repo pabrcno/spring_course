@@ -1,55 +1,59 @@
 package com.github.pabrcno.be_project.app.customers;
 
-import java.util.UUID;
-import com.github.pabrcno.be_project.domain.customers.Customer;
-import com.github.pabrcno.be_project.domain.customers.ICustomersService;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.pabrcno.be_project.domain.customers.CustomerRequest;
+import com.github.pabrcno.be_project.domain.customers.CustomerResponse;
+import com.github.pabrcno.be_project.domain.customers.ICustomersService;
+import com.github.pabrcno.be_project.handle.exceptions.ApiRestTokenException;
+
+
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.AllArgsConstructor;
 
 
 @RequestMapping("/api/v1/customers")
 @RestController
+@AllArgsConstructor
 public class CustomersController {
     
-    private final ICustomersService customersService;
+    private final ICustomersService service;
     
-    @Autowired
-    public CustomersController(ICustomersService customersService) {
-        this.customersService = customersService;
+    @PostMapping("login")
+    public CustomerResponse login(@RequestParam("email") String customerEmail, @RequestParam("password") String pwd)
+            throws Exception {
+        return service.getCustomer(customerEmail, pwd);
     }
     @GetMapping()
-    public Customer[] getAllCustomers() {
-        return customersService.getAllCustomers();
+    public List<CustomerResponse> getAllCustomers() {
+        return service.getAllCustomers();
     }
-    @PostMapping
-    public void addCustomer(@RequestBody Customer customer ) {
-        customersService.addCustomer(customer);
+
+    @PostMapping("create")
+    public void addCustomer(@RequestBody CustomerRequest customer ) throws ApiRestTokenException {
+        service.addCustomer(customer);
     }
 
     @GetMapping(path= "{customerId}")
-    public Customer getCustomerById(@PathVariable("customerId") UUID customerId) {
-        return customersService.getCustomerById(customerId);
+    public CustomerResponse getCustomerById(@PathVariable("customerId") String customerId) throws ApiRestTokenException {
+        return service.getCustomerById(customerId);
     }
-    @GetMapping(path= "{customerName}")
-    public Customer getCustomerByName(@PathVariable("customerName") String customerName) {
-        return customersService.getCustomerByName(customerName);
+    @GetMapping(path= "{customerEmail}")
+    public CustomerResponse getCustomerByEmail(@PathVariable("customerEmail") String customerEmail) throws ApiRestTokenException {
+        return service.getCustomerByEmail(customerEmail);
     }
 
     @DeleteMapping(path= "{customerId}")
-    public void deleteCustomer(@PathVariable("customerId") UUID customerId) {
-        customersService.deleteCustomer(customerId);
+    public void deleteCustomer(@PathVariable("customerId") String customerId) throws ApiRestTokenException {
+        service.deleteCustomer(customerId);
     }
-    @PatchMapping(path= "{customerId}/update")
-    public void updateCustomer(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer) {
-        customersService.updateCustomer(customer,customerId);
-    }
-
 }

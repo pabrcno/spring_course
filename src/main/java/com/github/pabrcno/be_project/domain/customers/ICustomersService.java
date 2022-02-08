@@ -1,12 +1,14 @@
 package com.github.pabrcno.be_project.domain.customers;
 
-import java.util.UUID;
+import java.util.List;
+
+import com.github.pabrcno.be_project.handle.exceptions.ApiRestTokenException;
 
 public interface ICustomersService {
-    Customer[] getAllCustomers();
-    void addCustomer(Customer Customer);
-    Customer getCustomerByName(String customerName);
-    Customer getCustomerById(UUID id);
-    void deleteCustomer(UUID id);
-    void updateCustomer( Customer customer, UUID id);
+    CustomerResponse getCustomer(String customerEmail, String password) throws ApiRestTokenException;
+    List<CustomerResponse> getAllCustomers();
+    CustomerResponse addCustomer(CustomerRequest request) throws ApiRestTokenException;
+    CustomerResponse getCustomerByEmail(String customerEmail) throws ApiRestTokenException;
+    CustomerResponse getCustomerById(String id) throws ApiRestTokenException;
+    void deleteCustomer(String id) throws ApiRestTokenException;
 }

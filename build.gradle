@@ -11,23 +11,40 @@ sourceCompatibility = '11'
 repositories {
 	mavenCentral()
 }
+ext {
+	set('springCloudVersion', "2021.0.0")
+}
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.bol:spring-data-mongodb-encrypt:2.7.2'
 	implementation 'org.springframework.boot:spring-boot-starter-aop:2.6.2'
-	runtimeOnly 'mysql:mysql-connector-java'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
-	runtimeOnly("mysql:mysql-connector-java")
+
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
-	
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'redis.clients:jedis'
+	implementation 'org.springframework.cloud:spring-cloud-config-server'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	testCompileOnly 'org.projectlombok:lombok:1.18.22'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
 test {
 	useJUnitPlatform()
 }
