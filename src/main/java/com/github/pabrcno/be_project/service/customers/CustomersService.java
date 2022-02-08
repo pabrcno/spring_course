@@ -57,7 +57,7 @@ public class CustomersService implements ICustomersService {
         Customer customer = repo.findByEmail(customerEmail);
        
         if (!(customer.getEmail().equals(customerEmail) && passwordEncoder.matches(password, customer.getPassword()))) {
-            throw new ApiRestTokenException("El usuario o el password es inválido");
+            throw new ApiRestTokenException("The user or password is incorrect");
         }
         var token = jwtProvider.getJWTToken(customerEmail);
         return CustomerResponse.builder().username(customer.getEmail()).email(customerEmail).token(token).build();

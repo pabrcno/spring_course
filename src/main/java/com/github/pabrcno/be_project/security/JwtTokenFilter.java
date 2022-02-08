@@ -49,7 +49,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
         }
     }
-
+    @SuppressWarnings("unchecked")
     private void setUpSpringAuthentication(Claims claims) {
         var authorities = (List<String>) claims.get(Constants.AUTHORITIES);
 
