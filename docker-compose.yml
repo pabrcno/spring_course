@@ -1,0 +1,23 @@
+version: "3"
+services:
+  mongo-coderhouse:
+    image: mongo
+    networks:
+      - gateway
+    container_name: mongo-coderhouse
+    ports:
+      - 27017:27017
+  final-project:
+    depends_on:
+      - mongo-coderhouse
+    build: .
+    container_name: final-project
+    networks:
+      - gateway
+    ports:
+      - 8086:8080
+    links:
+      - mongo-coderhouse
+networks:
+  gateway:
+    driver: bridge
